@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ioan 15-16 Test</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); min-height: 100vh; }
+        .container { background: white; border-radius: 15px; padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+        h1 { text-align: center; color: #1a7f5a; margin-bottom: 10px; font-size: 2.2em; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 30px; font-size: 1.1em; }
+        .section { margin-bottom: 40px; padding: 20px; background: #f0fff8; border-radius: 10px; border-left: 5px solid #11998e; }
+        .section h2 { color: #1a7f5a; margin-top: 0; padding-bottom: 10px; border-bottom: 2px solid #e0e0e0; }
+        .question { margin: 20px 0; padding: 15px; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .question-text { font-weight: 500; margin-bottom: 12px; color: #333; line-height: 1.5; }
+        .reference { color: #11998e; font-weight: 600; }
+        .options { margin-left: 10px; }
+        .options label { display: block; padding: 8px 12px; margin: 5px 0; cursor: pointer; border-radius: 5px; transition: background 0.2s; }
+        .options label:hover { background: #e8fff5; }
+        .options input[type="radio"], .options input[type="checkbox"] { margin-right: 10px; }
+        .tf-options { display: flex; gap: 20px; }
+        .tf-options label { display: inline-flex; align-items: center; padding: 8px 20px; background: #f0f0f0; border-radius: 20px; }
+        .matching-section { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .matching-left, .matching-right { background: white; padding: 15px; border-radius: 8px; }
+        .matching-left h4, .matching-right h4 { margin-top: 0; color: #1a7f5a; }
+        .matching-item { padding: 10px; margin: 8px 0; background: #f0fff8; border-radius: 5px; }
+        .matching-select { padding: 8px; border-radius: 5px; border: 2px solid #ddd; margin-right: 10px; font-size: 14px; }
+        .btn-container { text-align: center; margin-top: 30px; }
+        .btn { padding: 15px 50px; font-size: 18px; border: none; border-radius: 30px; cursor: pointer; transition: all 0.3s; margin: 5px; }
+        .btn-check { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; }
+        .btn-check:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(17, 153, 142, 0.4); }
+        .btn-reset { background: #e0e0e0; color: #333; }
+        .btn-reset:hover { background: #d0d0d0; }
+        .results { margin-top: 30px; padding: 25px; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border-radius: 15px; color: white; text-align: center; display: none; }
+        .results h2 { margin-top: 0; font-size: 1.8em; }
+        .score { font-size: 3em; font-weight: bold; margin: 15px 0; }
+        .score-details { font-size: 1.1em; opacity: 0.9; }
+        .correct { background: #d4edda !important; border-left: 4px solid #28a745; }
+        .incorrect { background: #f8d7da !important; border-left: 4px solid #dc3545; }
+        .correct-answer { color: #28a745; font-weight: bold; margin-top: 8px; }
+        .section-score { background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 10px; margin: 10px 5px; display: inline-block; }
+        @media (max-width: 600px) { .matching-section { grid-template-columns: 1fr; } .tf-options { flex-direction: column; gap: 5px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍇 Ioan 15-16 Test</h1>
+        <p class="subtitle">Test interactiv cu auto-verificare și notare</p>
+
+        <div class="section" id="section1">
+            <h2>I. Adevărat sau Fals (2 puncte fiecare)</h2>
+            
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">1. Eu sunt adevărata Viță și Tatăl meu este Vierul. <span class="reference">(15:1)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf1" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf1" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">2. Pe orice mlădiță care aduce rod, o curăță, ca să aducă și mai mult rod. <span class="reference">(15:2)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf2" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf2" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">3. Voi nu puteți aduce rod dacă nu rămâneți în Mine. <span class="reference">(15:4)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf3" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf3" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">4. Despărțiți de Mine nu puteți face nimic. <span class="reference">(15:5)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf4" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf4" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">5. Dacă aduceți mult rod, voi veți fi astfel ucenicii Mei. <span class="reference">(15:8)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf5" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf5" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="F" data-points="2">
+                <div class="question-text">6. V-am spus aceste lucruri, pentru ca pacea Mea să rămână în voi. <span class="reference">(15:11)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf6" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf6" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">7. Aceasta este porunca Mea: să vă iubiți unii pe alții, cum v-am iubit Eu. <span class="reference">(15:12)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf7" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf7" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">8. Voi sunteți prietenii Mei, dacă faceți ce vă poruncesc Eu. <span class="reference">(15:14)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf8" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf8" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">9. Dacă M-au prigonit pe Mine, și pe voi vă vor prigoni. <span class="reference">(15:20)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf9" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf9" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="F" data-points="2">
+                <div class="question-text">10. Cine Mă urăște pe Mine, urăște și pe Duhul Sfânt. <span class="reference">(15:23)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf10" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf10" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">11. Acum Mă duc la Cel ce M-a trimis. <span class="reference">(16:5)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf11" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf11" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">12. Când va veni Mângâietorul, adică Duhul Adevărului, are să vă călăuzească în tot adevărul. <span class="reference">(16:13)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf12" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf12" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">13. Tot ce are Tatăl este al Meu. <span class="reference">(16:15)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf13" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf13" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">14. Adevărat, adevărat vă spun că orice veți cere de la Tatăl, în Numele Meu, vă va da. <span class="reference">(16:23)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf14" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf14" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="F" data-points="2">
+                <div class="question-text">15. Tatăl Însuși vă iubește pentru că M-ați ascultat și ați crezut că am ieșit de la Dumnezeu. <span class="reference">(16:27)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf15" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf15" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">16. V-am spus aceste lucruri, ca să aveți pace în Mine. <span class="reference">(16:33)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf16" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf16" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">17. În lume veți avea necazuri, dar îndrăzniți, Eu am biruit lumea. <span class="reference">(16:33)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf17" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf17" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">18. Cereți și veți căpăta, pentru ca bucuria voastră să fie deplină. <span class="reference">(16:24)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf18" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf18" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">19. Vă este de folos să Mă duc. <span class="reference">(16:7)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf19" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf19" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="F" data-points="2">
+                <div class="question-text">20. Mai am să vă spun multe lucruri, dar acum nu le puteți asculta. <span class="reference">(16:12)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf20" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf20" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">21. Isus a zis: „Dacă rămâneți în Mine, și dacă rămân în voi cuvintele Mele, cereți orice veți vrea și vi se va da." <span class="reference">(15:7)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf21" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf21" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="F" data-points="2">
+                <div class="question-text">22. Isus a zis ucenicilor: „Nu voi M-ați ales pe Mine; ci Eu v-am ales pe voi; și v-am rânduit să mergeți și să aduceți roadă, și roada voastră să rămână, pentru ca orice veți cere de la Mine în Numele Tatălui, să vă dau." <span class="reference">(15:16)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf22" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf22" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="F" data-points="2">
+                <div class="question-text">23. Isus a zis Fariseilor: „Tatăl însuși vă iubește, pentru că M-ați iubit și ați crezut că am ieșit de la Dumnezeu." <span class="reference">(16:27)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf23" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf23" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">24. Isus a zis: „Am ieșit de la Tatăl, și am venit în lume; acum las lumea, și Mă duc la Tatăl." <span class="reference">(16:28)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf24" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf24" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">25. Isus a zis: „Cine Mă urăște pe Mine, urăște și pe Tatăl Meu." <span class="reference">(15:23)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf25" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf25" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">26. Isus a zis: „Dacă păziți poruncile Mele, veți rămâne în dragostea Mea, după cum și Eu am păzit poruncile Tatălui Meu, și rămân în dragostea Lui." <span class="reference">(15:10)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf26" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf26" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">27. Isus a zis ucenicilor: „Până acum n-ați cerut nimic în Numele Tatălui: cereți, și veți căpăta, pentru ca bucuria voastră să fie deplină." <span class="reference">(16:24)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf27" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf27" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">28. „V-am spus aceste lucruri ca să aveți pace în Mine. În lume veți avea necazuri; dar îndrăzniți, Eu am biruit lumea." <span class="reference">(16:33)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf28" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf28" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">29. Isus a zis ucenicilor: „Voi sunteți prietenii Mei, dacă faceți ce vă poruncesc Eu." <span class="reference">(15:14)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf29" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf29" value="F"> Fals</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="A" data-points="2">
+                <div class="question-text">30. Isus a zis: „Eu sunt adevărata viță, și Tatăl Meu este vierul." <span class="reference">(15:1)</span></div>
+                <div class="tf-options">
+                    <label><input type="radio" name="tf30" value="A"> Adevărat</label>
+                    <label><input type="radio" name="tf30" value="F"> Fals</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="section2">
+            <h2>II. Alegeți răspunsul corect (4 puncte fiecare)</h2>
+
+            <div class="question" data-correct="a" data-points="4">
+                <div class="question-text">1. Pe orice mlădiță care este în Mine și n-aduce rod: <span class="reference">(15:2)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc1" value="a"> a. El o taie</label>
+                    <label><input type="radio" name="mc1" value="b"> b. O curăță</label>
+                    <label><input type="radio" name="mc1" value="c"> c. O aruncă în foc</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="a" data-points="4">
+                <div class="question-text">2. Rămâneți în: <span class="reference">(15:9)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc2" value="a"> a. Dragostea Mea</label>
+                    <label><input type="radio" name="mc2" value="b"> b. Pacea Mea</label>
+                    <label><input type="radio" name="mc2" value="c"> c. Bucuria Mea</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="c" data-points="4">
+                <div class="question-text">3. Nu vă mai numesc robi, pentru că robul nu știe ce face stăpânul său, ci v-am numit: <span class="reference">(15:15)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc3" value="a"> a. Frați</label>
+                    <label><input type="radio" name="mc3" value="b"> b. Copii</label>
+                    <label><input type="radio" name="mc3" value="c"> c. Prieteni</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="b" data-points="4">
+                <div class="question-text">4. Acum voi sunteți curați din pricina: <span class="reference">(15:3)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc4" value="a"> a. Tatălui Meu</label>
+                    <label><input type="radio" name="mc4" value="b"> b. Cuvântului pe care vi l-am spus</label>
+                    <label><input type="radio" name="mc4" value="c"> c. Numelui Meu</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="b" data-points="4">
+                <div class="question-text">5. Dacă păziți poruncile Mele, veți rămâne în: <span class="reference">(15:10)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc5" value="a"> a. Voia Mea</label>
+                    <label><input type="radio" name="mc5" value="b"> b. Dragostea Mea</label>
+                    <label><input type="radio" name="mc5" value="c"> c. Cuvântul Meu</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="a" data-points="4">
+                <div class="question-text">6. Dacă vă urăște lumea, să știți că: <span class="reference">(15:18)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc6" value="a"> a. Pe Mine M-au urât înaintea voastră</label>
+                    <label><input type="radio" name="mc6" value="b"> b. Cereți orice veți vrea și vi se va da</label>
+                    <label><input type="radio" name="mc6" value="c"> c. Voi sunteți prietenii Mei</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="c" data-points="4">
+                <div class="question-text">7. Nu este mai mare dragoste decât: <span class="reference">(15:13)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc7" value="a"> a. Să faceți ce vă poruncesc Eu</label>
+                    <label><input type="radio" name="mc7" value="b"> b. Să aduceți rod</label>
+                    <label><input type="radio" name="mc7" value="c"> c. Să-și dea cineva viața pentru prietenii săi</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="b" data-points="4">
+                <div class="question-text">8. V-am spus aceste lucruri pentru ca…………….să rămână în voi. <span class="reference">(15:11)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc8" value="a"> a. Dragostea Mea</label>
+                    <label><input type="radio" name="mc8" value="b"> b. Bucuria Mea</label>
+                    <label><input type="radio" name="mc8" value="c"> c. Cuvântul Meu</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="b" data-points="4">
+                <div class="question-text">9. Eu sunt Vița, voi sunteți: <span class="reference">(15:5)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc9" value="a"> a. Vierul</label>
+                    <label><input type="radio" name="mc9" value="b"> b. Mlădițele</label>
+                    <label><input type="radio" name="mc9" value="c"> c. Rodul</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="a" data-points="4">
+                <div class="question-text">10. Dacă nu rămâne cineva în Mine: <span class="reference">(15:6)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc10" value="a"> a. Este aruncat afară</label>
+                    <label><input type="radio" name="mc10" value="b"> b. Nu este prietenul Meu</label>
+                    <label><input type="radio" name="mc10" value="c"> c. Este prigonit</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="c" data-points="4">
+                <div class="question-text">11. V-am spus aceste lucruri pentru ca: <span class="reference">(16:33)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc11" value="a"> a. să aveți bucurie</label>
+                    <label><input type="radio" name="mc11" value="b"> b. să aveți adevărul</label>
+                    <label><input type="radio" name="mc11" value="c"> c. să aveți pace în Mine</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="a" data-points="4">
+                <div class="question-text">12. În lume veți avea: <span class="reference">(16:33)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc12" value="a"> a. necazuri</label>
+                    <label><input type="radio" name="mc12" value="b"> b. bucurii</label>
+                    <label><input type="radio" name="mc12" value="c"> c. fericire</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="a" data-points="4">
+                <div class="question-text">13. Îndrăzniți, Eu am………lumea: <span class="reference">(16:33)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc13" value="a"> a. biruit</label>
+                    <label><input type="radio" name="mc13" value="b"> b. câștigat</label>
+                    <label><input type="radio" name="mc13" value="c"> c. mântuit</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="a" data-points="4">
+                <div class="question-text">14. V-am spus aceste lucruri: <span class="reference">(16:25)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc14" value="a"> a. în pilde</label>
+                    <label><input type="radio" name="mc14" value="b"> b. în povestiri</label>
+                    <label><input type="radio" name="mc14" value="c"> c. în Evanghelie</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="a" data-points="4">
+                <div class="question-text">15. Cereți și veți căpăta pentru ca: <span class="reference">(16:24)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc15" value="a"> a. bucuria voastră să fie deplină</label>
+                    <label><input type="radio" name="mc15" value="b"> b. pacea voastră să fie deplină</label>
+                    <label><input type="radio" name="mc15" value="c"> c. viața voastră să fie deplină</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="b" data-points="4">
+                <div class="question-text">16. V-am spus aceste lucruri pentru ca, atunci când le va veni ceasul să se împlinească: <span class="reference">(16:4)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc16" value="a"> a. să nu vă întristați</label>
+                    <label><input type="radio" name="mc16" value="b"> b. să vă aduceți aminte că vi le-am spus</label>
+                    <label><input type="radio" name="mc16" value="c"> c. să credeți</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="b" data-points="4">
+                <div class="question-text">17. Tatăl Însuși: <span class="reference">(16:27)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc17" value="a"> a. vă primește</label>
+                    <label><input type="radio" name="mc17" value="b"> b. vă iubește</label>
+                    <label><input type="radio" name="mc17" value="c"> c. vă iartă</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="c" data-points="4">
+                <div class="question-text">18. Când va veni Mângâietorul, Duhul Adevărului: <span class="reference">(16:13)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc18" value="a"> a. are să vă călăuzească în toată lumina</label>
+                    <label><input type="radio" name="mc18" value="b"> b. are să vă călăuzească în toată înțelepciunea</label>
+                    <label><input type="radio" name="mc18" value="c"> c. are să vă călăuzească în tot adevărul</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="c" data-points="4">
+                <div class="question-text">19. Am ieșit de la Tatăl, <span class="reference">(16:28)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc19" value="a"> a. și am venit pe pământ</label>
+                    <label><input type="radio" name="mc19" value="b"> b. și am venit la voi</label>
+                    <label><input type="radio" name="mc19" value="c"> c. și am venit în lume</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="c" data-points="4">
+                <div class="question-text">20. Totuși, vă spun adevărul: <span class="reference">(16:7)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc20" value="a"> a. nu vă voi lăsa singuri</label>
+                    <label><input type="radio" name="mc20" value="b"> b. voi sunteți prietenii mei</label>
+                    <label><input type="radio" name="mc20" value="c"> c. vă este de folos să mă duc</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="b" data-points="4">
+                <div class="question-text">21. Cine rămâne în Mine, și în cine rămân Eu, aduce multă roadă; căci despărțiți: <span class="reference">(15:5)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc21" value="a"> a. de lume, nu puteți face nimic</label>
+                    <label><input type="radio" name="mc21" value="b"> b. de Mine, nu puteți face nimic</label>
+                    <label><input type="radio" name="mc21" value="c"> c. de Tatăl, nu puteți face nimic</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="c" data-points="4">
+                <div class="question-text">22. Cum M-a iubit pe Mine Tatăl, așa v-am iubit și Eu pe voi. Rămâneți în: <span class="reference">(15:9)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc22" value="a"> a. dragostea Tatălui</label>
+                    <label><input type="radio" name="mc22" value="b"> b. neprihănirea Mea</label>
+                    <label><input type="radio" name="mc22" value="c"> c. dragostea Mea</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="a" data-points="4">
+                <div class="question-text">23. Isus a zis: „Aceasta este porunca Mea: ______.": <span class="reference">(15:12)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc23" value="a"> a. să vă iubiți unii pe alții, cum v-am iubit Eu</label>
+                    <label><input type="radio" name="mc23" value="b"> b. să ascultați de Tatăl, cum am ascultat Eu</label>
+                    <label><input type="radio" name="mc23" value="c"> c. să învățați poruncile, pe care vi le-am dat Eu</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="a" data-points="4">
+                <div class="question-text">24. Ce era scris în Lege, referitor la faptul că Iudeii nu l-au primit pe Isus? <span class="reference">(15:25)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc24" value="a"> a. „M-au urât fără temei"</label>
+                    <label><input type="radio" name="mc24" value="b"> b. „M-au iubit din toată inima"</label>
+                    <label><input type="radio" name="mc24" value="c"> c. „M-au urât cu temei"</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="b" data-points="4">
+                <div class="question-text">25. Ce este Mângâietorul? <span class="reference">(16:13)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc25" value="a"> a. Duhul Fiului</label>
+                    <label><input type="radio" name="mc25" value="b"> b. Duhul Adevărului</label>
+                    <label><input type="radio" name="mc25" value="c"> c. Duhul veacului</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="a" data-points="4">
+                <div class="question-text">26. Isus a zis ucenicilor: „Acum voi sunteți curați, din pricina: <span class="reference">(15:3)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc26" value="a"> a. cuvântului, pe care vi l-am spus</label>
+                    <label><input type="radio" name="mc26" value="b"> b. minunilor, pe care vi le-am arătat</label>
+                    <label><input type="radio" name="mc26" value="c"> c. că Eu Mă duc la Tatăl</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="a" data-points="4">
+                <div class="question-text">27. De la cine vine Mângâietorul (Duhul Sfânt)? <span class="reference">(15:26)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc27" value="a"> a. De la Tatăl</label>
+                    <label><input type="radio" name="mc27" value="b"> b. De la Îngeri</label>
+                    <label><input type="radio" name="mc27" value="c"> c. De la Moise</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="b" data-points="4">
+                <div class="question-text">28. Isus a zis ucenicilor că ei sunt: <span class="reference">(15:5)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc28" value="a"> a. Vița</label>
+                    <label><input type="radio" name="mc28" value="b"> b. Mlădița</label>
+                    <label><input type="radio" name="mc28" value="c"> c. Vierul</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="b" data-points="4">
+                <div class="question-text">29. Dacă vă urăște lumea, știți că: <span class="reference">(15:18)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc29" value="a"> a. pe Mine nu M-a urât de la început</label>
+                    <label><input type="radio" name="mc29" value="b"> b. pe Mine M-a urât înaintea voastră</label>
+                    <label><input type="radio" name="mc29" value="c"> c. lumea este rea</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="c" data-points="4">
+                <div class="question-text">30. Dacă aduceți multă roadă, prin aceasta: <span class="reference">(15:8)</span></div>
+                <div class="options">
+                    <label><input type="radio" name="mc30" value="a"> a. voi veți fi proslăviți</label>
+                    <label><input type="radio" name="mc30" value="b"> b. Fiul va fi proslăvit</label>
+                    <label><input type="radio" name="mc30" value="c"> c. Tatăl Meu va fi proslăvit</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="section3">
+            <h2>III. Asociere (2 puncte fiecare)</h2>
+            
+            <p><strong>Set 1:</strong> Asociați afirmațiile (Ioan 15):</p>
+            <div class="matching-section">
+                <div class="matching-left">
+                    <h4>Afirmații:</h4>
+                    <div class="matching-item">
+                        <select class="matching-select" name="match1" data-correct="A">
+                            <option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+                        </select>
+                        1. Cine Mă urăște pe Mine <span class="reference">(15:23)</span>
+                    </div>
+                    <div class="matching-item">
+                        <select class="matching-select" name="match2" data-correct="D">
+                            <option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+                        </select>
+                        2. Aceasta este porunca Mea <span class="reference">(15:12)</span>
+                    </div>
+                    <div class="matching-item">
+                        <select class="matching-select" name="match3" data-correct="C">
+                            <option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+                        </select>
+                        3. Dacă aduceți mult rod <span class="reference">(15:8)</span>
+                    </div>
+                    <div class="matching-item">
+                        <select class="matching-select" name="match4" data-correct="E">
+                            <option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+                        </select>
+                        4. Nu voi M-ați ales pe Mine <span class="reference">(15:16)</span>
+                    </div>
+                    <div class="matching-item">
+                        <select class="matching-select" name="match5" data-correct="B">
+                            <option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+                        </select>
+                        5. Când va veni Mângâietorul <span class="reference">(15:26)</span>
+                    </div>
+                </div>
+                <div class="matching-right">
+                    <h4>Continuări:</h4>
+                    <div class="matching-item">A. Urăște și pe Tatăl Meu</div>
+                    <div class="matching-item">B. El va mărturisi despre Mine</div>
+                    <div class="matching-item">C. Tatăl Meu va fi proslăvit</div>
+                    <div class="matching-item">D. Să vă iubiți unii pe alții</div>
+                    <div class="matching-item">E. Ci Eu v-am ales pe voi</div>
+                </div>
+            </div>
+
+            <br><br>
+            <p><strong>Set 2:</strong> Asociați despre Mângâietor (Ioan 16):</p>
+            <div class="matching-section">
+                <div class="matching-left">
+                    <h4>Termeni:</h4>
+                    <div class="matching-item">
+                        <select class="matching-select" name="match6" data-correct="E">
+                            <option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+                        </select>
+                        1. Tot ce are Tatăl <span class="reference">(16:15)</span>
+                    </div>
+                    <div class="matching-item">
+                        <select class="matching-select" name="match7" data-correct="D">
+                            <option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+                        </select>
+                        2. În ce privește păcatul <span class="reference">(16:9)</span>
+                    </div>
+                    <div class="matching-item">
+                        <select class="matching-select" name="match8" data-correct="C">
+                            <option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+                        </select>
+                        3. În ce privește neprihănirea <span class="reference">(16:10)</span>
+                    </div>
+                    <div class="matching-item">
+                        <select class="matching-select" name="match9" data-correct="B">
+                            <option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+                        </select>
+                        4. În ce privește judecata <span class="reference">(16:11)</span>
+                    </div>
+                    <div class="matching-item">
+                        <select class="matching-select" name="match10" data-correct="A">
+                            <option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+                        </select>
+                        5. Mai am să vă spun multe lucruri <span class="reference">(16:12)</span>
+                    </div>
+                </div>
+                <div class="matching-right">
+                    <h4>Explicații:</h4>
+                    <div class="matching-item">A. dar acum nu le puteți purta</div>
+                    <div class="matching-item">B. fiindcă stăpânitorul lumii acesteia este judecat</div>
+                    <div class="matching-item">C. fiindcă Eu Mă duc la Tatăl</div>
+                    <div class="matching-item">D. fiindcă ei nu cred în Mine</div>
+                    <div class="matching-item">E. este al Meu</div>
+                </div>
+            </div>
+
+            <br><br>
+            <p><strong>Set 3:</strong> Asociați despre păcat, neprihănire, judecată și mlădițe:</p>
+            <div class="matching-section">
+                <div class="matching-left">
+                    <h4>Termeni:</h4>
+                    <div class="matching-item">
+                        <select class="matching-select" name="match11" data-correct="A">
+                            <option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+                        </select>
+                        1. Păcatul <span class="reference">(16:9)</span>
+                    </div>
+                    <div class="matching-item">
+                        <select class="matching-select" name="match12" data-correct="B">
+                            <option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+                        </select>
+                        2. Neprihănirea <span class="reference">(16:10)</span>
+                    </div>
+                    <div class="matching-item">
+                        <select class="matching-select" name="match13" data-correct="C">
+                            <option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+                        </select>
+                        3. Judecata <span class="reference">(16:11)</span>
+                    </div>
+                    <div class="matching-item">
+                        <select class="matching-select" name="match14" data-correct="E">
+                            <option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+                        </select>
+                        4. Mlădița care nu aduce roadă <span class="reference">(15:2)</span>
+                    </div>
+                    <div class="matching-item">
+                        <select class="matching-select" name="match15" data-correct="D">
+                            <option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+                        </select>
+                        5. Mlădița care aduce roadă <span class="reference">(15:2)</span>
+                    </div>
+                </div>
+                <div class="matching-right">
+                    <h4>Explicații:</h4>
+                    <div class="matching-item">A. fiindcă ei nu cred în Mine</div>
+                    <div class="matching-item">B. fiindcă Mă duc la Tatăl</div>
+                    <div class="matching-item">C. fiindcă stăpânitorul lumii acesteia este judecat</div>
+                    <div class="matching-item">D. o curățește</div>
+                    <div class="matching-item">E. o taie</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="section4">
+            <h2>IV. Variante multiple - alegeți toate răspunsurile corecte (5 puncte fiecare)</h2>
+
+            <div class="question" data-correct="a,c" data-points="5" data-type="multi">
+                <div class="question-text">1. Lumea vă urăște pentru că: <span class="reference">(15:19)</span></div>
+                <div class="options">
+                    <label><input type="checkbox" name="multi1" value="a"> a. Nu sunteți din lume</label>
+                    <label><input type="checkbox" name="multi1" value="b"> b. Nu vă cunoaște</label>
+                    <label><input type="checkbox" name="multi1" value="c"> c. Eu v-am ales din mijlocul lumii</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="c" data-points="5" data-type="multi">
+                <div class="question-text">2. Dacă rămâneți în Mine și dacă rămân în voi cuvintele Mele: <span class="reference">(15:7)</span></div>
+                <div class="options">
+                    <label><input type="checkbox" name="multi2" value="a"> a. Veți fi astfel ucenicii Mei</label>
+                    <label><input type="checkbox" name="multi2" value="b"> b. Veți rămâne în dragostea Mea</label>
+                    <label><input type="checkbox" name="multi2" value="c"> c. Cereți orice veți vrea și vi se va da</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="a,b" data-points="5" data-type="multi">
+                <div class="question-text">3. Dacă aduceți mult rod: <span class="reference">(15:8)</span></div>
+                <div class="options">
+                    <label><input type="checkbox" name="multi3" value="a"> a. Prin aceasta Tatăl Meu va fi proslăvit</label>
+                    <label><input type="checkbox" name="multi3" value="b"> b. Voi veți fi astfel ucenicii Mei</label>
+                    <label><input type="checkbox" name="multi3" value="c"> c. Eu voi fi cu voi</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="a,b,c" data-points="5" data-type="multi">
+                <div class="question-text">4. Și când va veni El (Mângâietorul), va dovedi lumea vinovată în ce privește: <span class="reference">(16:8)</span></div>
+                <div class="options">
+                    <label><input type="checkbox" name="multi4" value="a"> a. păcatul</label>
+                    <label><input type="checkbox" name="multi4" value="b"> b. neprihănirea</label>
+                    <label><input type="checkbox" name="multi4" value="c"> c. judecata</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="a,b,c" data-points="5" data-type="multi">
+                <div class="question-text">5. Când va veni Mângâietorul, Duhul Adevărului: <span class="reference">(16:13)</span></div>
+                <div class="options">
+                    <label><input type="checkbox" name="multi5" value="a"> a. are să vă călăuzească în tot adevărul</label>
+                    <label><input type="checkbox" name="multi5" value="b"> b. va vorbi tot ce va fi auzit</label>
+                    <label><input type="checkbox" name="multi5" value="c"> c. vă va descoperi lucrurile viitoare</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="b,c" data-points="5" data-type="multi">
+                <div class="question-text">6. Căci Tatăl Însuși vă iubește pentru că: <span class="reference">(16:27)</span></div>
+                <div class="options">
+                    <label><input type="checkbox" name="multi6" value="a"> a. prin aceasta Tatăl Meu va fi proslăvit</label>
+                    <label><input type="checkbox" name="multi6" value="b"> b. M-ați iubit</label>
+                    <label><input type="checkbox" name="multi6" value="c"> c. ați crezut că am ieșit de la Dumnezeu</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="a,b,c" data-points="5" data-type="multi">
+                <div class="question-text">7. Când va veni Mângâietorul: <span class="reference">(16:7-8)</span></div>
+                <div class="options">
+                    <label><input type="checkbox" name="multi7" value="a"> a. va dovedi lumea vinovată în ce privește păcatul</label>
+                    <label><input type="checkbox" name="multi7" value="b"> b. va dovedi lumea vinovată în ce privește neprihănirea</label>
+                    <label><input type="checkbox" name="multi7" value="c"> c. va dovedi lumea vinovată în ce privește judecata</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="a,b,c" data-points="5" data-type="multi">
+                <div class="question-text">8. Isus a zis: „Când va veni Mângâietorul…..": <span class="reference">(16:13-14)</span></div>
+                <div class="options">
+                    <label><input type="checkbox" name="multi8" value="a"> a. are să vă călăuzească în tot adevărul</label>
+                    <label><input type="checkbox" name="multi8" value="b"> b. El Mă va proslăvi</label>
+                    <label><input type="checkbox" name="multi8" value="c"> c. vă va descoperi lucrurile viitoare</label>
+                </div>
+            </div>
+
+            <div class="question" data-correct="a,b,c" data-points="5" data-type="multi">
+                <div class="question-text">9. Isus a zis ucenicilor: <span class="reference">(16:31-32)</span></div>
+                <div class="options">
+                    <label><input type="checkbox" name="multi9" value="a"> a. Iată că vine ceasul, și a și venit, când veți fi risipiți fiecare la ale lui</label>
+                    <label><input type="checkbox" name="multi9" value="b"> b. Pe Mine Mă veți lăsa singur</label>
+                    <label><input type="checkbox" name="multi9" value="c"> c. Nu sunt singur, căci Tatăl este cu Mine</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="btn btn-check" onclick="checkAnswers()">✓ Verifică Răspunsurile</button>
+            <button class="btn btn-reset" onclick="resetTest()">↻ Resetează Testul</button>
+        </div>
+
+        <div class="results" id="results">
+            <h2>📊 Rezultate</h2>
+            <div class="score" id="scorePercent">0%</div>
+            <div class="score-details" id="scoreDetails"></div>
+            <div id="sectionScores"></div>
+        </div>
+    </div>
+
+    <script>
+        function checkAnswers() {
+            let totalPoints = 0;
+            let earnedPoints = 0;
+            let sectionResults = {
+                'I': { earned: 0, total: 0, name: 'Adevărat/Fals' },
+                'II': { earned: 0, total: 0, name: 'Alegere simplă' },
+                'III': { earned: 0, total: 0, name: 'Asociere' },
+                'IV': { earned: 0, total: 0, name: 'Variante multiple' }
+            };
+
+            for (let i = 1; i <= 30; i++) {
+                const question = document.querySelector('[name="tf'+i+'"]').closest('.question');
+                const correct = question.dataset.correct;
+                const points = parseInt(question.dataset.points);
+                const selected = document.querySelector('input[name="tf'+i+'"]:checked');
+                totalPoints += points;
+                sectionResults['I'].total += points;
+                question.classList.remove('correct', 'incorrect');
+                const existingAnswer = question.querySelector('.correct-answer');
+                if (existingAnswer) existingAnswer.remove();
+                if (selected && selected.value === correct) {
+                    earnedPoints += points;
+                    sectionResults['I'].earned += points;
+                    question.classList.add('correct');
+                } else {
+                    question.classList.add('incorrect');
+                    const answerDiv = document.createElement('div');
+                    answerDiv.className = 'correct-answer';
+                    answerDiv.textContent = 'Răspuns corect: ' + (correct === 'A' ? 'Adevărat' : 'Fals');
+                    question.appendChild(answerDiv);
+                }
+            }
+
+            for (let i = 1; i <= 30; i++) {
+                const question = document.querySelector('[name="mc'+i+'"]').closest('.question');
+                const correct = question.dataset.correct;
+                const points = parseInt(question.dataset.points);
+                const selected = document.querySelector('input[name="mc'+i+'"]:checked');
+                totalPoints += points;
+                sectionResults['II'].total += points;
+                question.classList.remove('correct', 'incorrect');
+                const existingAnswer = question.querySelector('.correct-answer');
+                if (existingAnswer) existingAnswer.remove();
+                if (selected && selected.value === correct) {
+                    earnedPoints += points;
+                    sectionResults['II'].earned += points;
+                    question.classList.add('correct');
+                } else {
+                    question.classList.add('incorrect');
+                    const answerDiv = document.createElement('div');
+                    answerDiv.className = 'correct-answer';
+                    answerDiv.textContent = 'Răspuns corect: ' + correct;
+                    question.appendChild(answerDiv);
+                }
+            }
+
+            for (let i = 1; i <= 15; i++) {
+                const select = document.querySelector('select[name="match'+i+'"]');
+                const correct = select.dataset.correct;
+                const matchItem = select.closest('.matching-item');
+                const points = 2;
+                totalPoints += points;
+                sectionResults['III'].total += points;
+                matchItem.classList.remove('correct', 'incorrect');
+                if (select.value === correct) {
+                    earnedPoints += points;
+                    sectionResults['III'].earned += points;
+                    matchItem.classList.add('correct');
+                } else {
+                    matchItem.classList.add('incorrect');
+                    select.style.borderColor = '#dc3545';
+                }
+            }
+
+            for (let i = 1; i <= 9; i++) {
+                const question = document.querySelector('[name="multi'+i+'"]').closest('.question');
+                const correctAnswers = question.dataset.correct.split(',');
+                const points = parseInt(question.dataset.points);
+                const checkboxes = document.querySelectorAll('input[name="multi'+i+'"]');
+                const selectedValues = [];
+                checkboxes.forEach(cb => { if (cb.checked) selectedValues.push(cb.value); });
+                totalPoints += points;
+                sectionResults['IV'].total += points;
+                question.classList.remove('correct', 'incorrect');
+                const existingAnswer = question.querySelector('.correct-answer');
+                if (existingAnswer) existingAnswer.remove();
+                const isCorrect = correctAnswers.length === selectedValues.length && correctAnswers.every(ans => selectedValues.includes(ans));
+                if (isCorrect) {
+                    earnedPoints += points;
+                    sectionResults['IV'].earned += points;
+                    question.classList.add('correct');
+                } else {
+                    question.classList.add('incorrect');
+                    const answerDiv = document.createElement('div');
+                    answerDiv.className = 'correct-answer';
+                    answerDiv.textContent = 'Răspunsuri corecte: ' + correctAnswers.join(', ');
+                    question.appendChild(answerDiv);
+                }
+            }
+
+            const percent = Math.round((earnedPoints / totalPoints) * 100);
+            document.getElementById('scorePercent').textContent = percent + '%';
+            document.getElementById('scoreDetails').textContent = earnedPoints + ' din ' + totalPoints + ' puncte';
+            let sectionHTML = '<div style="margin-top: 20px;">';
+            for (const [key, data] of Object.entries(sectionResults)) {
+                sectionHTML += '<span class="section-score">' + key + '. ' + data.name + ': ' + data.earned + '/' + data.total + '</span>';
+            }
+            sectionHTML += '</div>';
+            document.getElementById('sectionScores').innerHTML = sectionHTML;
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetTest() {
+            document.querySelectorAll('input[type="radio"]').forEach(input => { input.checked = false; });
+            document.querySelectorAll('input[type="checkbox"]').forEach(input => { input.checked = false; });
+            document.querySelectorAll('select').forEach(select => { select.value = ''; select.style.borderColor = '#ddd'; });
+            document.querySelectorAll('.question, .matching-item').forEach(el => { el.classList.remove('correct', 'incorrect'); });
+            document.querySelectorAll('.correct-answer').forEach(el => { el.remove(); });
+            document.getElementById('results').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
